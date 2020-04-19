@@ -7,7 +7,7 @@ public class OpenWeatherAPIResponse {
     private Main main;
     private List<Weather> weather;
 
-    public OpenWeatherAPIResponse(Main main, List<Weather> weather) {
+    OpenWeatherAPIResponse(Main main, List<Weather> weather) {
         this.main = main;
         this.weather = weather;
     }
@@ -16,24 +16,24 @@ public class OpenWeatherAPIResponse {
         return weather;
     }
 
-    public Main getMain() {
+    Main getMain() {
         return main;
     }
 
-    public static class Main {
+    static class Main {
         private double temp;
         private double pressure;
 
-        public Main(double temp, double pressure) {
+        Main(double temp, double pressure) {
             this.temp = temp;
             this.pressure = pressure;
         }
 
-        public double getPressure() {
+        double getPressure() {
             return pressure;
         }
 
-        public double getTemp() {
+        double getTemp() {
             return temp;
         }
     }
@@ -45,7 +45,7 @@ public class OpenWeatherAPIResponse {
             this.main = main;
         }
 
-        public String getMain() {
+        String getMain() {
             return main;
         }
     }

@@ -12,6 +12,20 @@ import static java.util.Arrays.asList;
 
 public class OpenWeatherServiceTest {
 
+    private static OpenWeatherAPIClient mockOpenWeatherClient(double temp, double pressure, List<String> conditions) {
+        OpenWeatherAPIResponse.Main main = new OpenWeatherAPIResponse.Main(temp, pressure);
+
+        List<OpenWeatherAPIResponse.Weather> weather = conditions.stream()
+            .map(OpenWeatherAPIResponse.Weather::new)
+            .collect(Collectors.toList());
+
+        return new OpenWeatherAPIClient() {
+            @Override public OpenWeatherAPIResponse weather(String location) {
+                return new OpenWeatherAPIResponse(main, weather);
+            }
+        };
+    }
+
     @Test
     public void currentWeatherRequiresUmbrella() throws WeatherException {
         int temp = 300;
@@ -38,19 +52,5 @@ public class OpenWeatherServiceTest {
         Assert.assertEquals(currentWeather.getTemp(), Utils.fromKelvinToCelsius(temp), 0);
         Assert.assertEquals(currentWeather.getPressure(), pressure, 0);
         Assert.assertFalse(currentWeather.isUmbrella());
-    }
-
-    private static OpenWeatherAPIClient mockOpenWeatherClient(double temp, double pressure, List<String> conditions) {
-        OpenWeatherAPIResponse.Main main = new OpenWeatherAPIResponse.Main(temp, pressure);
-
-        List<OpenWeatherAPIResponse.Weather> weather = conditions.stream()
-            .map(OpenWeatherAPIResponse.Weather::new)
-            .collect(Collectors.toList());
-
-        return new OpenWeatherAPIClient() {
-            @Override public OpenWeatherAPIResponse weather(String location) {
-                return new OpenWeatherAPIResponse(main, weather);
-            }
-        };
     }
 }

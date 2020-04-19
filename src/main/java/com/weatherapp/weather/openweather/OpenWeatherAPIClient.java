@@ -21,11 +21,7 @@ public class OpenWeatherAPIClient {
     public OpenWeatherAPIClient() {
         this(BASE_URL, API_KEY);
     }
-
-    public OpenWeatherAPIClient(String apiKey) {
-        this(BASE_URL, apiKey);
-    }
-
+    
     public OpenWeatherAPIClient(String url, String apiKey) {
         this.url = url;
         this.apiKey = apiKey;

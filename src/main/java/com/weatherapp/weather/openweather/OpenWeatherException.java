@@ -1,7 +1,7 @@
 package com.weatherapp.weather.openweather;
 
-public class OpenWeatherException extends RuntimeException {
-    public OpenWeatherException(String msg) {
+class OpenWeatherException extends RuntimeException {
+    OpenWeatherException(String msg) {
         super(msg);
     }
 }
