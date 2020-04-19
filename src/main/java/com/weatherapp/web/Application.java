@@ -5,15 +5,23 @@ import com.weatherapp.weather.WeatherNotFoundException;
 import com.weatherapp.weather.WeatherServiceWithHistory;
 
 import static spark.Spark.after;
+import static spark.Spark.before;
 import static spark.Spark.exception;
 import static spark.Spark.get;
+import static spark.Spark.halt;
 
 public class Application {
     private static final Gson gson = new Gson();
     private static final WeatherServiceWithHistory weatherService = new WeatherServiceWithHistory();
 
     public static void main(String[] args) {
-        get("/_health", (req, res) -> "OK");
+
+        before((req, res) -> {
+            String location = req.queryParams("location");
+            if (location == null || location.isEmpty()) {
+                halt(422, "Location is missing");
+            }
+        });
 
         get("/current", (req, res) -> weatherService.current(req.queryParams("location")), gson::toJson);
 
