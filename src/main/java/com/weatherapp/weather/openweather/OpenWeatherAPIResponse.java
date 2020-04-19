@@ -1,4 +1,4 @@
-package com.weatherapp.service.openweather;
+package com.weatherapp.weather.openweather;
 
 import java.util.List;
 
@@ -6,6 +6,11 @@ public class OpenWeatherAPIResponse {
 
     private Main main;
     private List<Weather> weather;
+
+    public OpenWeatherAPIResponse(Main main, List<Weather> weather) {
+        this.main = main;
+        this.weather = weather;
+    }
 
     public List<Weather> getWeather() {
         return weather;
@@ -17,9 +22,14 @@ public class OpenWeatherAPIResponse {
 
     public static class Main {
         private double temp;
-        private int pressure;
+        private double pressure;
 
-        public int getPressure() {
+        public Main(double temp, double pressure) {
+            this.temp = temp;
+            this.pressure = pressure;
+        }
+
+        public double getPressure() {
             return pressure;
         }
 
@@ -30,6 +40,10 @@ public class OpenWeatherAPIResponse {
 
     public static class Weather {
         private String main;
+
+        public Weather(String main) {
+            this.main = main;
+        }
 
         public String getMain() {
             return main;
